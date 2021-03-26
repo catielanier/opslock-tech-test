@@ -1,5 +1,9 @@
 <script lang="ts">
-	import interface IShift from '../App.svelte'
+	interface IShift {
+		start: string;
+		end: string;
+	}
+
 	export let availableShifts: IShift[];
 	export let addShift: Function;
 	let shiftIndex: number = 0;
