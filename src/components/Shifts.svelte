@@ -7,6 +7,21 @@
 	export let deleteShift: Function;
 </script>
 
+<style>
+	ul {
+		list-style-type: none;
+		list-style-position: inside;
+	}
+
+	button {
+		border-radius: 50%;
+		padding: 10px;
+		background: red;
+		color: white;
+		cursor: pointer;
+	}
+</style>
+
 <div class="shifts">
 	<h2>Your Shifts:</h2>
 	<ul>

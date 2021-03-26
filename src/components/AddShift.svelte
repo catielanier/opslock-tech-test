@@ -1,9 +1,5 @@
 <script lang="ts">
-	interface IShift {
-		start: string;
-		end: string;
-	}
-
+	import interface IShift from '../App.svelte'
 	export let availableShifts: IShift[];
 	export let addShift: Function;
 	let shiftIndex: number = 0;
@@ -12,6 +8,16 @@
 		addShift(availableShifts[shiftIndex]);
 	};
 </script>
+
+<style>
+	select {
+		margin-right: 10px;
+	}
+	button {
+		background: red;
+		color: white;
+	}
+</style>
 
 <div class="available-shifts">
 	<h2>Add a Shift:</h2>
