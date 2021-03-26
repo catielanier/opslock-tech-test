@@ -7,16 +7,9 @@
 	export let availableShifts: IShift[];
 	export let addShift: Function;
 	let shiftIndex: number = 0;
-	let error: string | null = null;
-
+	export let error: string | null;
 	const submitShift = (): void => {
-		const isSuccess: boolean = addShift(
-			availableShifts[shiftIndex]
-		);
-		if (!isSuccess) {
-			error =
-				"This shift overlaps with another shift in your schedule.";
-		}
+		addShift(availableShifts[shiftIndex]);
 	};
 </script>
 

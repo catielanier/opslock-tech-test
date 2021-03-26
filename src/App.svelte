@@ -5,6 +5,7 @@
 		start: string;
 		end: string;
 	}
+	let error: string | null = null;
 	let usershifts: IShift[] = [
 		{
 			start: "0600",
@@ -59,7 +60,7 @@
 		return isValidShift;
 	};
 
-	const verifyShift = (shift: IShift, index: number = 0): boolean => {
+	const verifyShift = (shift: IShift, index: number = 0): void => {
 		if (index === usershifts.length) {
 			const shifts = [...usershifts];
 			shifts.push(shift);
@@ -69,17 +70,23 @@
 					parseInt(b.start, 10)
 			);
 			usershifts = shifts;
-			return true;
+			return;
 		}
 		const startShift: number = parseInt(
 			usershifts[index].start,
 			10
 		);
 		const endShift: number = parseInt(usershifts[index].end, 10);
+		const start: number = parseInt(shift.start, 10);
 		const end = parseInt(shift.end, 10);
-		if ((end - startShift) * (end - endShift) <= 0) {
+		if (
+			(end > startShift && end < endShift) ||
+			(start > startShift && start < endShift)
+		) {
 			console.log("not a valid shift");
-			return false;
+			error =
+				"This shift falls within a shift you are already working.";
+			return;
 		} else {
 			verifyShift(shift, index + 1);
 		}
@@ -118,5 +125,5 @@
 <main>
 	<h1>Shift Manager</h1>
 	<Shifts shifts={usershifts} {deleteShift} />
-	<AddShift availableShifts={availableCompanyShifts} {addShift} />
+	<AddShift availableShifts={availableCompanyShifts} {addShift} {error} />
 </main>
