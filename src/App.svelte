@@ -80,6 +80,7 @@
 					parseInt(b.start, 10)
 			);
 			usershifts = shifts;
+			error = null;
 			return;
 		}
 		const startShift: number = parseInt(
