@@ -55,12 +55,22 @@
 			end: "1800",
 		},
 	];
-	const addShift = (shift: IShift): boolean => {
-		const isValidShift: boolean = verifyShift(shift);
-		return isValidShift;
+
+	const addShift = (shift: IShift): void => {
+		const start: number = parseInt(shift.start, 10);
+		const end: number = parseInt(shift.end, 10);
+		const shiftHours: number[] = [start, end];
+		for (let i = start + 100; i < end; i += 100) {
+			shiftHours.push(i);
+		}
+		verifyShift(shift, shiftHours);
 	};
 
-	const verifyShift = (shift: IShift, index: number = 0): void => {
+	const verifyShift = (
+		shift: IShift,
+		shiftHours: number[],
+		index: number = 0
+	): void => {
 		if (index === usershifts.length) {
 			const shifts = [...usershifts];
 			shifts.push(shift);
@@ -77,19 +87,18 @@
 			10
 		);
 		const endShift: number = parseInt(usershifts[index].end, 10);
-		const start: number = parseInt(shift.start, 10);
-		const end = parseInt(shift.end, 10);
-		if (
-			(end > startShift && end < endShift) ||
-			(start > startShift && start < endShift)
-		) {
-			console.log("not a valid shift");
-			error =
-				"This shift falls within a shift you are already working.";
-			return;
-		} else {
-			verifyShift(shift, index + 1);
+		for (let i = 0; i < shiftHours.length; i++) {
+			if (
+				shiftHours[i] > startShift &&
+				shiftHours[i] < endShift
+			) {
+				console.log("not a valid shift");
+				error =
+					"This shift falls within a shift you are already working.";
+				return;
+			}
 		}
+		verifyShift(shift, shiftHours, index + 1);
 	};
 
 	const deleteShift = (index: number): void => {
