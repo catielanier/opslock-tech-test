@@ -66,18 +66,11 @@
     };
 
     const hasOverlap: boolean = usershifts.some((userShift) => {
-      console.log(
-        `${userShift.start}: ${isBetween(parseInt(userShift.start, 10))}`
-      );
-      console.log(
-        `${userShift.end}: ${isBetween(parseInt(userShift.end, 10))}`
-      );
       return (
         isBetween(parseInt(userShift.start, 10)) ||
         isBetween(parseInt(userShift.end, 10))
       );
     });
-    console.log(hasOverlap);
     if (hasOverlap) {
       error = "This shift falls within a shift you are already working.";
       return;
@@ -90,7 +83,6 @@
   };
 
   const deleteShift = (index: number): void => {
-    console.log(`running ${index}`);
     const shifts = [...usershifts];
     shifts.splice(index, 1);
     usershifts = shifts;
